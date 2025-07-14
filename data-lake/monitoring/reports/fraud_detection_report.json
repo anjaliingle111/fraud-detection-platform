@@ -1,0 +1,27 @@
+{
+  "platform": "RobustFraudDetectionPlatform",
+  "analysis_timestamp": "2025-07-11T15:09:24.823628",
+  "total_transactions": 3000,
+  "actual_fraud_cases": 49,
+  "fraud_detection_rate": 0.5306122448979592,
+  "false_positive_rate": 0.0023720772619451034,
+  "risk_distribution": {
+    "MINIMAL": 2869,
+    "HIGH": 19,
+    "LOW": 77,
+    "MEDIUM": 35
+  },
+  "ml_model_performance": {
+    "auc": 0.9970515207945375,
+    "precision": 0.8461538461538461,
+    "recall": 0.9166666666666666,
+    "f1_score": 0.8799999999999999
+  },
+  "fraud_detection_improvements": {
+    "chargeback_analysis": "Implemented - Primary fraud indicator",
+    "credit_history_integration": "Implemented - FICO score analysis",
+    "velocity_detection": "Implemented - Card testing prevention",
+    "pattern_analysis": "Implemented - Account takeover detection",
+    "identity_verification": "Implemented - SSN verification scoring"
+  }
+}

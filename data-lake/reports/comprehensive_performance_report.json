@@ -1,0 +1,48 @@
+{
+  "platform_info": {
+    "platform_name": "WindowsCompatibleRealisticPlatform",
+    "report_timestamp": "2025-07-11T15:41:39.254049",
+    "windows_compatible": true,
+    "delta_lake_available": true,
+    "storage_format": "Delta Lake"
+  },
+  "data_summary": {
+    "total_transactions": 20000,
+    "fraud_transactions": 76,
+    "fraud_rate": 0.0038,
+    "risk_distribution": {
+      "MINIMAL": 13271,
+      "LOW": 6668,
+      "MEDIUM": 61
+    }
+  },
+  "model_performance": {
+    "auc": 0.5,
+    "precision": 0,
+    "recall": 0.0,
+    "f1_score": 0,
+    "model_type": "Logistic Regression with Cross-Validation",
+    "regularization": "L1/L2 Elastic Net (regParam=0.1)",
+    "realistic_performance": true,
+    "target_auc_achieved": false,
+    "overfitting_prevention": [
+      "3-fold cross-validation",
+      "L1/L2 regularization",
+      "Realistic data with noise",
+      "Proper train/test split"
+    ]
+  },
+  "technical_features": {
+    "windows_hadoop_compatibility": true,
+    "spark_session_initialized": true,
+    "data_lake_architecture": "Bronze \u2192 Silver \u2192 Gold",
+    "feature_engineering": "Chargeback + Velocity + Amount + Credit + Device",
+    "api_endpoints": 5
+  },
+  "business_impact": {
+    "expected_fraud_detection_rate": 0.0,
+    "expected_false_positive_rate": 1,
+    "model_interpretability": "High (Logistic Regression)",
+    "real_time_scoring": "Enabled"
+  }
+}

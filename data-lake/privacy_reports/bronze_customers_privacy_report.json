@@ -1,0 +1,40 @@
+{
+  "masking_timestamp": "2025-07-13T21:31:32.483609",
+  "compliance_status": "COMPLIANT",
+  "pii_fields_masked": [
+    "ssn",
+    "phone",
+    "email",
+    "customer_name",
+    "address",
+    "ip_address"
+  ],
+  "masking_summary": {
+    "total_fields_processed": 10,
+    "pii_fields_identified": 6,
+    "masking_techniques": {
+      "regex_replacement": [
+        "ssn",
+        "phone",
+        "email",
+        "ip_address"
+      ],
+      "hashing": [
+        "customer_name"
+      ],
+      "generalization": [
+        "address"
+      ]
+    }
+  },
+  "compliance_frameworks": {
+    "GDPR": "Article 25 - Data Protection by Design",
+    "CCPA": "Section 1798.100 - Consumer Rights",
+    "PCI_DSS": "Requirement 3.4 - Protect Stored Data"
+  },
+  "audit_trail": {
+    "masking_key_used": true,
+    "reversible_masking": false,
+    "data_minimization": true
+  }
+}

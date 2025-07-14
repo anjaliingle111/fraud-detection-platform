@@ -1,0 +1,70 @@
+﻿version: '3.8'
+
+services:
+  data-platform:
+    build:
+      context: .
+      dockerfile: cloud-deployment/docker/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - ENVIRONMENT=development
+      - SPARK_MASTER=local[*]
+      - MONITORING_ENABLED=true
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./config:/app/config
+    networks:
+      - data-platform-network
+
+  postgres:
+    image: postgres:15
+    environment:
+      - POSTGRES_DB=data_platform
+      - POSTGRES_USER=datauser
+      - POSTGRES_PASSWORD=datapass123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - data-platform-network
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - data-platform-network
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - data-platform-network
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin123
+    volumes:
+      - grafana_data:/var/lib/grafana
+    networks:
+      - data-platform-network
+
+volumes:
+  postgres_data:
+  redis_data:
+  grafana_data:
+
+networks:
+  data-platform-network:
+    driver: bridge

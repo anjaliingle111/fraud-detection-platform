@@ -1,0 +1,39 @@
+{
+  "timestamp": "2025-07-13T21:33:33.111932",
+  "platform_info": {
+    "name": "WindowsCompatibleRealisticPlatform",
+    "uptime_seconds": 163.58485507965088,
+    "delta_lake_available": false,
+    "spark_version": "3.5.0",
+    "python_version": "3.11.4 (tags/v3.11.4:d2340ef, Jun  7 2023, 05:45:37) [MSC v.1934 64 bit (AMD64)]"
+  },
+  "model_performance": {
+    "auc_score": 0.6580672162711654,
+    "precision": 0.03169877408056042,
+    "recall": 0.7973568281938326,
+    "f1_score": 0.06097355566784571,
+    "cv_auc": 0.6580672162711654,
+    "cv_std": 0.0244043754058783,
+    "model_type": "Anti-Overfitting RandomForest",
+    "feature_count": 6
+  },
+  "data_processing": {
+    "medallion_architecture": "Implemented",
+    "privacy_masking": "GDPR/CCPA Compliant",
+    "feature_engineering": "Advanced (6+ features)",
+    "cross_validation": "Stratified K-Fold"
+  },
+  "api_endpoints": {
+    "health_check": "/health",
+    "fraud_prediction": "/predict",
+    "model_performance": "/model-performance",
+    "platform_info": "/platform-info",
+    "data_lake_status": "/data-lake-status"
+  },
+  "compliance": {
+    "privacy_masking": "Implemented",
+    "pii_protection": "Active",
+    "audit_logs": "Enabled",
+    "gdpr_compliance": "Yes"
+  }
+}

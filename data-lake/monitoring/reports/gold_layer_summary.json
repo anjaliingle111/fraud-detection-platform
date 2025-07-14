@@ -1,0 +1,150 @@
+{
+  "total_transactions": 20000,
+  "total_amount": 4920245.534163901,
+  "fraud_transactions": 251,
+  "fraud_amount": 78341.18839903318,
+  "fraud_rate": 0.01255,
+  "channel_distribution": [
+    {
+      "channel": "in_store",
+      "transaction_id": 6725,
+      "amount": 1661050.5755340292,
+      "is_fraud": 56
+    },
+    {
+      "channel": "mobile",
+      "transaction_id": 6618,
+      "amount": 1629600.9718524893,
+      "is_fraud": 59
+    },
+    {
+      "channel": "online",
+      "transaction_id": 6657,
+      "amount": 1629593.9867773822,
+      "is_fraud": 136
+    }
+  ],
+  "hourly_distribution": [
+    {
+      "hour": 0,
+      "transaction_id": 812,
+      "is_fraud": 16
+    },
+    {
+      "hour": 1,
+      "transaction_id": 816,
+      "is_fraud": 20
+    },
+    {
+      "hour": 2,
+      "transaction_id": 809,
+      "is_fraud": 15
+    },
+    {
+      "hour": 3,
+      "transaction_id": 820,
+      "is_fraud": 13
+    },
+    {
+      "hour": 4,
+      "transaction_id": 834,
+      "is_fraud": 15
+    },
+    {
+      "hour": 5,
+      "transaction_id": 795,
+      "is_fraud": 17
+    },
+    {
+      "hour": 6,
+      "transaction_id": 775,
+      "is_fraud": 9
+    },
+    {
+      "hour": 7,
+      "transaction_id": 831,
+      "is_fraud": 8
+    },
+    {
+      "hour": 8,
+      "transaction_id": 856,
+      "is_fraud": 9
+    },
+    {
+      "hour": 9,
+      "transaction_id": 892,
+      "is_fraud": 6
+    },
+    {
+      "hour": 10,
+      "transaction_id": 841,
+      "is_fraud": 10
+    },
+    {
+      "hour": 11,
+      "transaction_id": 853,
+      "is_fraud": 10
+    },
+    {
+      "hour": 12,
+      "transaction_id": 829,
+      "is_fraud": 8
+    },
+    {
+      "hour": 13,
+      "transaction_id": 812,
+      "is_fraud": 9
+    },
+    {
+      "hour": 14,
+      "transaction_id": 825,
+      "is_fraud": 7
+    },
+    {
+      "hour": 15,
+      "transaction_id": 872,
+      "is_fraud": 11
+    },
+    {
+      "hour": 16,
+      "transaction_id": 803,
+      "is_fraud": 10
+    },
+    {
+      "hour": 17,
+      "transaction_id": 857,
+      "is_fraud": 10
+    },
+    {
+      "hour": 18,
+      "transaction_id": 875,
+      "is_fraud": 10
+    },
+    {
+      "hour": 19,
+      "transaction_id": 850,
+      "is_fraud": 1
+    },
+    {
+      "hour": 20,
+      "transaction_id": 808,
+      "is_fraud": 3
+    },
+    {
+      "hour": 21,
+      "transaction_id": 873,
+      "is_fraud": 15
+    },
+    {
+      "hour": 22,
+      "transaction_id": 815,
+      "is_fraud": 8
+    },
+    {
+      "hour": 23,
+      "transaction_id": 847,
+      "is_fraud": 11
+    }
+  ],
+  "report_timestamp": "2025-07-13T20:35:54.039710"
+}

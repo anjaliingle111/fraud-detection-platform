@@ -1,0 +1,26 @@
+﻿app:
+  name: "Cloud-Native Data Platform"
+  version: "1.0.0"
+  environment: "development"
+
+spark:
+  master: "local[*]"
+  app_name: "DataPlatform"
+  executor_memory: "2g"
+  driver_memory: "1g"
+
+data:
+  input_path: "./data/input"
+  output_path: "./data/output"
+  checkpoint_path: "./data/checkpoints"
+
+monitoring:
+  enabled: true
+  metrics_port: 8080
+  prometheus_enabled: true
+  grafana_enabled: true
+
+security:
+  encryption_enabled: true
+  authentication_required: false
+  ssl_enabled: false

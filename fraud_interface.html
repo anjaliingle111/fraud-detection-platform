@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Fraud Detection Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #3498db, #8e44ad);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+
+        .form-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group label {
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .input-group input, .input-group select {
+            padding: 15px;
+            border: 2px solid #ecf0f1;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .analyze-btn {
+            background: linear-gradient(45deg, #3498db, #8e44ad);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        .analyze-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(52, 152, 219, 0.3);
+        }
+
+        .analyze-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .results {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .results.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .result-status {
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .status-approved {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-review {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-declined {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .fraud-probability {
+            font-size: 2em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .detail-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .detail-card h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .detail-card p {
+            color: #7f8c8d;
+            margin-bottom: 5px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #ecf0f1;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #27ae60, #f39c12, #e74c3c);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #7f8c8d;
+        }
+
+        .loading::after {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #3498db;
+            border-top: 2px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .form-section {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🛡️ Enterprise Fraud Detection</h1>
+            <p>Real-time transaction analysis with AI-powered risk assessment</p>
+        </div>
+
+        <form id="fraudForm">
+            <div class="form-section">
+                <div class="input-group">
+                    <label for="amount">💰 Transaction Amount ($)</label>
+                    <input type="number" id="amount" name="amount" step="0.01" min="0" placeholder="Enter amount (e.g., 5000)" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="customer_id">👤 Customer ID</label>
+                    <input type="text" id="customer_id" name="customer_id" placeholder="Enter customer ID (e.g., CUST_001)" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="channel">📱 Payment Channel</label>
+                    <select id="channel" name="channel" required>
+                        <option value="">Select channel</option>
+                        <option value="online">🌐 Online</option>
+                        <option value="mobile">📱 Mobile</option>
+                        <option value="pos">🏪 Point of Sale</option>
+                        <option value="atm">🏧 ATM</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="merchant">🏢 Merchant (Optional)</label>
+                    <input type="text" id="merchant" name="merchant" placeholder="Enter merchant name">
+                </div>
+            </div>
+
+            <button type="submit" class="analyze-btn" id="analyzeBtn">
+                🔍 Analyze Transaction
+            </button>
+        </form>
+
+        <div class="error-message" id="errorMessage"></div>
+
+        <div class="results" id="results">
+            <div class="result-header">
+                <div>
+                    <div class="fraud-probability" id="fraudProb">0%</div>
+                    <p>Fraud Probability</p>
+                </div>
+                <div class="result-status" id="resultStatus">ANALYZING...</div>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+
+            <div class="details-grid">
+                <div class="detail-card">
+                    <h3>🎯 Risk Assessment</h3>
+                    <p><strong>Risk Level:</strong> <span id="riskLevel">-</span></p>
+                    <p><strong>Confidence:</strong> <span id="confidence">-</span></p>
+                    <p><strong>Business Action:</strong> <span id="businessAction">-</span></p>
+                </div>
+
+                <div class="detail-card">
+                    <h3>💡 Contributing Factors</h3>
+                    <p><strong>Credit Risk:</strong> <span id="creditRisk">-</span></p>
+                    <p><strong>Amount Risk:</strong> <span id="amountRisk">-</span></p>
+                    <p><strong>Velocity Risk:</strong> <span id="velocityRisk">-</span></p>
+                </div>
+
+                <div class="detail-card">
+                    <h3>💰 Cost-Benefit Analysis</h3>
+                    <p><strong>Expected Cost:</strong> $<span id="expectedCost">-</span></p>
+                    <p><strong>Fraud Prevented:</strong> $<span id="fraudPrevented">-</span></p>
+                    <p><strong>ROI:</strong> <span id="roi">-</span>x</p>
+                </div>
+
+                <div class="detail-card">
+                    <h3>📊 Transaction Details</h3>
+                    <p><strong>Model Version:</strong> <span id="modelVersion">-</span></p>
+                    <p><strong>Timestamp:</strong> <span id="timestamp">-</span></p>
+                    <p><strong>Explanation:</strong> <span id="explanation">-</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('fraudForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const analyzeBtn = document.getElementById('analyzeBtn');
+            const results = document.getElementById('results');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Show loading state
+            analyzeBtn.disabled = true;
+            analyzeBtn.innerHTML = '🔍 Analyzing...';
+            results.style.display = 'block';
+            results.innerHTML = '<div class="loading">Analyzing transaction for fraud patterns...</div>';
+            errorMessage.style.display = 'none';
+            
+            // Get form data
+            const formData = new FormData(e.target);
+            const transactionData = {
+                amount: parseFloat(formData.get('amount')),
+                customer_id: formData.get('customer_id'),
+                channel: formData.get('channel')
+            };
+            
+            if (formData.get('merchant')) {
+                transactionData.merchant = formData.get('merchant');
+            }
+            
+            try {
+                // Call your fraud detection API
+                const response = await fetch('http://localhost:8080/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(transactionData)
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                displayResults(data);
+                
+            } catch (error) {
+                console.error('Error:', error);
+                results.style.display = 'none';
+                errorMessage.style.display = 'block';
+                errorMessage.innerHTML = `
+                    <strong>⚠️ Error:</strong> Unable to connect to fraud detection API. 
+                    <br>Please ensure your platform is running on localhost:8080
+                    <br>Error details: ${error.message}
+                `;
+            } finally {
+                // Reset button
+                analyzeBtn.disabled = false;
+                analyzeBtn.innerHTML = '🔍 Analyze Transaction';
+            }
+        });
+        
+        function displayResults(data) {
+            const results = document.getElementById('results');
+            
+            // Update fraud probability
+            const fraudProb = Math.round(data.fraud_probability * 100);
+            
+            // Update progress bar
+            const progressFill = document.getElementById('progressFill');
+            progressFill.style.width = `${fraudProb}%`;
+            
+            // Update status
+            const businessAction = data.business_action || 'UNKNOWN';
+            
+            // Update contributing factors
+            const factors = data.contributing_factors || {};
+            
+            // Update cost-benefit analysis
+            const costBenefit = data.cost_benefit_analysis || {};
+            
+            // Show results with animation
+            results.innerHTML = `
+                <div class="result-header">
+                    <div>
+                        <div class="fraud-probability">${fraudProb}%</div>
+                        <p>Fraud Probability</p>
+                    </div>
+                    <div class="result-status ${getStatusClass(businessAction)}">${businessAction}</div>
+                </div>
+
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: ${fraudProb}%"></div>
+                </div>
+
+                <div class="details-grid">
+                    <div class="detail-card">
+                        <h3>🎯 Risk Assessment</h3>
+                        <p><strong>Risk Level:</strong> ${data.risk_level || 'Unknown'}</p>
+                        <p><strong>Confidence:</strong> ${data.confidence || 'Unknown'}</p>
+                        <p><strong>Business Action:</strong> ${businessAction}</p>
+                    </div>
+
+                    <div class="detail-card">
+                        <h3>💡 Contributing Factors</h3>
+                        <p><strong>Credit Risk:</strong> ${factors.credit_risk ? Math.round(factors.credit_risk * 100) + '%' : 'N/A'}</p>
+                        <p><strong>Amount Risk:</strong> ${factors.amount_risk ? Math.round(factors.amount_risk * 100) + '%' : 'N/A'}</p>
+                        <p><strong>Velocity Risk:</strong> ${factors.velocity_risk ? Math.round(factors.velocity_risk * 100) + '%' : 'N/A'}</p>
+                    </div>
+
+                    <div class="detail-card">
+                        <h3>💰 Cost-Benefit Analysis</h3>
+                        <p><strong>Expected Cost:</strong> $${costBenefit.expected_cost ? costBenefit.expected_cost.toFixed(2) : 'N/A'}</p>
+                        <p><strong>Fraud Prevented:</strong> $${costBenefit.fraud_prevented ? costBenefit.fraud_prevented.toFixed(2) : 'N/A'}</p>
+                        <p><strong>ROI:</strong> ${costBenefit.roi ? costBenefit.roi.toFixed(2) + 'x' : 'N/A'}</p>
+                    </div>
+
+                    <div class="detail-card">
+                        <h3>📊 Transaction Details</h3>
+                        <p><strong>Model Version:</strong> ${data.model_version || 'Unknown'}</p>
+                        <p><strong>Timestamp:</strong> ${data.timestamp ? new Date(data.timestamp).toLocaleString() : 'N/A'}</p>
+                        <p><strong>Explanation:</strong> ${data.explanation || 'No explanation provided'}</p>
+                    </div>
+                </div>
+            `;
+            
+            results.classList.add('show');
+        }
+        
+        function getStatusClass(action) {
+            switch(action) {
+                case 'APPROVE': return 'status-approved';
+                case 'REVIEW': return 'status-review';
+                case 'DECLINE': return 'status-declined';
+                default: return '';
+            }
+        }
+        
+        // Add some example data for quick testing
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Fraud Detection Interface Ready! 🚀');
+        });
+    </script>
+</body>
+</html>

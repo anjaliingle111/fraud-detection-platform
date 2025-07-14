@@ -1,0 +1,30 @@
+{
+  "timestamp": "2025-07-11T11:44:41.827602",
+  "platform_health": {
+    "status": "healthy",
+    "uptime_hours": 24,
+    "memory_usage_mb": 2048,
+    "cpu_usage_percent": 45.2,
+    "disk_usage_gb": 15.7
+  },
+  "data_quality": {
+    "overall_score": 0.987,
+    "completeness": 0.992,
+    "accuracy": 0.985,
+    "consistency": 0.978,
+    "timeliness": 0.994
+  },
+  "processing_metrics": {
+    "records_processed_today": 125000,
+    "avg_processing_time_ms": 1250,
+    "pipeline_success_rate": 0.998,
+    "errors_count": 2,
+    "warnings_count": 8
+  },
+  "ml_model_performance": {
+    "fraud_detection_accuracy": 0.912,
+    "model_drift_score": 0.02,
+    "predictions_served": 15000,
+    "avg_prediction_time_ms": 45
+  }
+}
