@@ -1,0 +1,80 @@
+🚀 Enterprise Fraud Detection Platform - Restart & Showcase Guide
+📋 System Restart Instructions
+Step 1: Environment Setup
+powershell# Navigate to project directory
+cd C:\Users\Anjali\fraud-detection-platform\etl_pipeline\real-world-data-engineering
+
+# Activate virtual environment
+fraud-detection-env\Scripts\activate
+
+# Verify environment
+python --version
+pip list | findstr scikit-learn
+Step 2: Start the Platform
+powershell# Start the fraud detection platform
+python cloud_native_data_platform_fixed.py
+
+# Wait for this success message:
+# "Enterprise Fraud Detection Platform initialized successfully"
+# "Starting Flask API server..."
+# "Running on http://127.0.0.1:8080"
+Step 3: Verify Platform Status
+powershell# Open NEW PowerShell window (keep platform running)
+# Test health endpoint
+Invoke-RestMethod -Uri "http://localhost:8080/health" -Method GET
+
+# Expected response:
+# platform: EnterpriseFraudPlatform
+# status: healthy
+# version: 3.0
+
+🎯 SHOWCASE DEMONSTRATION SCRIPT
+Demo 1: Basic API Testing
+powershell# Test basic fraud detection
+Invoke-RestMethod -Uri "http://localhost:8080/predict" -Method POST -ContentType "application/json" -Body '{"amount": 5000, "customer_id": "CUST_001", "channel": "online"}'
+
+# Expected Results:
+# - Fraud Probability: ~23%
+# - Business Action: REVIEW
+# - Risk Level: MEDIUM
+# - ROI: 229x return on investment
+Demo 2: High-Risk Transaction
+powershell# Test high-risk scenario
+Invoke-RestMethod -Uri "http://localhost:8080/predict" -Method POST -ContentType "application/json" -Body '{"amount": 15000, "customer_id": "CUST_999", "channel": "online"}'
+
+# Expected Results:
+# - Fraud Probability: ~43%
+# - Business Action: REVIEW/DECLINE
+# - Risk Level: HIGH
+# - ROI: 1,289x return on investment
+Demo 3: Low-Risk Transaction
+powershell# Test low-risk scenario
+Invoke-RestMethod -Uri "http://localhost:8080/predict" -Method POST -ContentType "application/json" -Body '{"amount": 100, "customer_id": "CUST_001", "channel": "pos"}'
+
+# Expected Results:
+# - Fraud Probability: ~5-15%
+# - Business Action: APPROVE
+# - Risk Level: LOW
+# - Fast processing time
+Demo 4: Comprehensive Factor Analysis
+powershell# Test with multiple fraud factors
+Invoke-RestMethod -Uri "http://localhost:8080/predict" -Method POST -ContentType "application/json" -Body '{"amount": 10000, "customer_id": "CUST_500", "channel": "online", "fico_score": 450, "chargeback_ratio": 15, "ssn_velocity": 8}'
+
+# Expected Results:
+# - Higher fraud probability due to multiple risk factors
+# - Detailed contributing factors breakdown
+# - Business action recommendation
+Demo 5: Platform Performance
+powershell# Check model performance
+Invoke-RestMethod -Uri "http://localhost:8080/model-performance" -Method GET
+
+# Check platform info
+Invoke-RestMethod -Uri "http://localhost:8080/platform-info" -Method GET
+
+# Check data lake status
+Invoke-RestMethod -Uri "http://localhost:8080/data-lake-status" -Method GET
+
+🖥️ WEB INTERFACE DEMO
+Step 1: Open Web Interface
+powershell# Open the comprehensive fraud input interface
+start comprehensive_fraud_input.html
